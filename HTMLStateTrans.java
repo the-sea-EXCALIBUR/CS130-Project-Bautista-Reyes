@@ -6,64 +6,25 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 
-public class CalcStateTrans extends JFrame implements ActionListener
+public class HTMLStateTrans extends JFrame implements ActionListener
 {
-	private JTextField display;
-	private String operand1 = "";
-	private String operand2 = "";
-	private String operation;
-	
-	public CalcStateTrans()
-	{
-		Container c = this.getContentPane();
-		c.setLayout( new BorderLayout() );
-		c.add( "North", display = new JTextField() );
-		JPanel keys = new JPanel();
-		keys.setLayout( new GridLayout( 5, 3) );
-		JButton temp;
-		for( int i = 1; i <=9; i++ )
-		{
-			keys.add( temp = new JButton(""+i) );
-			temp.addActionListener( this );
-		}
-		keys.add( temp = new JButton( "0" ));
-			temp.addActionListener( this );
-		keys.add( temp = new JButton( "+" ));
-			temp.addActionListener( this );
-		keys.add( temp = new JButton( "-" ));
-			temp.addActionListener( this );
-		keys.add( temp = new JButton( "C" ));
-			temp.addActionListener( this );
-		keys.add( temp = new JButton( "" ));
-			temp.addActionListener( this );
-		keys.add( temp = new JButton( "=" ));
-			temp.addActionListener( this );
-		c.add( "Center", keys );
 
-		// ends program when window close icon is pressed
-        addWindowListener(new WindowAdapter()
-        {
-			public void windowClosing(WindowEvent e)
-			{
-				System.exit(0);
-			}
-		});
+	public HTMLStateTrans() throws Exception
+	{
+		FileReader file = null;
+		try {
+		file = new FileReader("text.txt");
+		}
+		catch(FileNotFoundException ae){
+			System.out.println("File not Found");
+		}
 		
+		file.close();
 	}
 	
 	private int charClass( String text )
 	{
-		boolean isDigit = "1234567890".indexOf( text ) != -1; // if buttonpressed is a digit
-		if ( isDigit )
-		   return 0;
-		else if ( "+-".indexOf( text ) != -1 )
-		   return 1;
-		else if ( text.equals("C" ))
-		   return 2;
-		else if ( text.equals("=" ))
-		   return 3;
-		else
-		   return -1;  // never happens
+		
 	}
 
 	private int currentState = 0;
@@ -73,8 +34,14 @@ public class CalcStateTrans extends JFrame implements ActionListener
 		{ 3, 5, 0, 5 },
 		{ 3, 0, 0, 4 }
 	};
+
+	public static void main( String args[] )
+	{
+		HTMLStateTrans test = new HTMLStateTrans();
+		
+	}
 	
-	public void actionPerformed( ActionEvent ae )
+	/*public void actionPerformed( ActionEvent ae )
 	{
 		JButton b = (JButton) ae.getSource();
 		String textOnButton = b.getText();
@@ -128,14 +95,8 @@ public class CalcStateTrans extends JFrame implements ActionListener
 
 		}
 		
-	}
+	}*/
 	
 	// driver program
 	
-	public static void main( String args[] )
-	{
-		CalcStateTrans c = new CalcStateTrans();
-		c.setSize( 150, 300 );
-		c.setVisible( true );
-	}
 }
