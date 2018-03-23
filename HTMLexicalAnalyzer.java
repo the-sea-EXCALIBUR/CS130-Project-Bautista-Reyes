@@ -4,7 +4,22 @@ import java.util.*;
 public class HTMLexicalAnalyzer {
         
         public static int currentState = 0;
-        // letter 1, number 2, white 3, < 4, ! 5, - 6, / 7, > 8, * 9, . 10, e 11, special 12, invalid 13,
+        /*
+        STATE TRANSITION TABLE
+        letters use element 0 in the arrays to access next state,
+        numbers use element 1, 
+        white spaces use element 2,
+        < 3,
+        ! 4,
+        - 5,
+        / 6, 
+        > 7, 
+        * 8, 
+        . 9, 
+        e 10, 
+        special 11, 
+        invalid 12
+        */
         public static int nextState[][] = 
         {
             { 11, 12, 0, 1, 15, 13, 13, 13, 21, 13, 11, 13, 15}, //q0
@@ -67,7 +82,8 @@ public class HTMLexicalAnalyzer {
             charMap.put("number", "NUMBER");
             return charMap;
         }
-
+        
+        //VALID MAP checks if the current character is valid
         public static Map<String, String> createValidMap()
         {
             Map<String,String> validMap = new HashMap<String,String>();
@@ -103,6 +119,7 @@ public class HTMLexicalAnalyzer {
             tokens.clear();
         }
         
+        //STATE MAP checks the current character to determine what kind of character it is
         public static Map<String, Integer> createStateMap()
         {
             Map<String,Integer> stateMap = new HashMap<String,Integer>();
